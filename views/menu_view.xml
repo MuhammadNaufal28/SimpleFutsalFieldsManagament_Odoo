@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- This Menu Item will appear in the Upper bar, that's why It needs NO parent or action -->
+    <menuitem id="doodexfutsal_menu_root" 
+    name="Futsal Doodex" 
+    sequence="1"/>
+
+
+   <menuitem id="doodexfutsal_pelanggan_menu_categ" 
+    name="Pelanggan" 
+    parent="doodexfutsal_menu_root" 
+    sequence="2"/>
+
+    <menuitem id="doodexfutsal_lapangan_menu_categ" 
+    name="Lapangan" 
+    parent="doodexfutsal_menu_root" 
+    sequence="3"/>
+
+    <menuitem id="doodexfutsal_karyawan_menu_categ" 
+    name="Karyawan" 
+    parent="doodexfutsal_menu_root" 
+    sequence="4"/>
+
+    <menuitem id="doodexfutsal_penyewaan_menu_categ" 
+    name="Penyewaan" 
+    parent="doodexfutsal_menu_root" 
+    sequence="5"/>
+
+    <menuitem id="doodexfutsal_sales_menu_categ" 
+    name="Sales" 
+    parent="doodexfutsal_menu_root" 
+    sequence="6"/>
+
+
+</odoo>

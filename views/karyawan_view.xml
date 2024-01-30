@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- doodexfutsal.karyawan tree view -->
+    <record id="doodexfutsal_karyawan_view_tree" model="ir.ui.view">
+        <field name="name">doodexfutsal.karyawan.view.tree</field>
+        <field name="model">doodexfutsal.karyawan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="bagian"/>
+                    <field name="gaji"/>
+                    <field name="gender"/>
+                    <field name="alamat"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- doodexfutsal.karyawan form view -->
+    <record id="doodexfutsal_karyawan_view_form" model="ir.ui.view">
+        <field name="name">doodexfutsal.karyawan.view.form</field>
+        <field name="model">doodexfutsal.karyawan</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <!-- Add your fields here -->
+                            <field name="name"/>
+                            <field name="bagian"/>
+                            <field name="gaji"/>
+                            <field name="gender"/>
+                            <field name="alamat"/>
+                        </group>
+                        <group>
+                            <field name="foto" widget="image" class="oe_avatar" options="{'preview_image': 'avatar_128', 'nolabel': 1}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- doodexfutsal.karyawan action window -->
+    <record id="doodexfutsal_karyawan_action" model="ir.actions.act_window">
+        <field name="name">Karyawan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">doodexfutsal.karyawan</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="doodexfutsal_karyawan_menu_act"
+              name="Karyawan" 
+              parent="doodexfutsal_karyawan_menu_categ" 
+              action="doodexfutsal_karyawan_action" 
+              sequence="1"/>
+</odoo>

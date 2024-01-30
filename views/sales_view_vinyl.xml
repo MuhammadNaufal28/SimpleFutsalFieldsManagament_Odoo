@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <record id="doodex_futsal_project_bar_chart" model="ir.ui.view">
+            <field name="name">doodexfutsal.penyewaan.bar.chart</field>
+            <field name="model">doodexfutsal.penyewaan</field>
+            <field name="arch" type="xml">
+                <graph string="Dashboard">
+                    <!-- Define your bar chart here -->
+                    <field name="total_payment" type="measure"/> <!-- Add start_date as another row -->
+                    <field name="start_date" type="row"/>
+                    <field name="tgl_transaksi" type="row"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Define the action for the bar chart -->
+        <record id="action_doodex_futsalvinyl_project_bar_chart" model="ir.actions.act_window">
+            <field name="name">Vinyl Bar Chart</field>
+            <field name="res_model">doodexfutsal.penyewaan</field>
+            <field name="view_mode">graph</field>
+            <!-- Specify the Bar Chart view -->
+            <field name="view_id" ref="doodex_futsal_project_bar_chart"/>
+        </record>
+        
+        <menuitem id="menu_doodex_futsalvinyl_project_bar_chart" name="Sales Vinyl Field" parent="doodexfutsal_sales_menu_categ" action="action_doodex_futsalvinyl_project_bar_chart" sequence='2'/>
+    </data>
+</odoo>

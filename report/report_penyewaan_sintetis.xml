@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_penyewaan_sintetis_template_pdf">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="pj">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h1 style="text-align: center;">NOTA PENYEWAAN</h1>
+                        <table class="table" style="width: 100%;">
+                            <tr>
+                                <td style="width: 20%;">Qr Code </td>
+                                <td style="width: 80%;"><img t-att-src="'data:image/png;base64,%s' % pj.qr_code"/></td>
+                            </tr>
+                            <tr>
+                                <td>No </td>
+                                <td><span t-field="pj.referensi"/></td>
+                            </tr>
+                            <tr>
+                                <td>Apakah Member </td>
+                                <td><span t-field="pj.membership"/></td>
+                            </tr>
+                            <tr>
+                                <td>Nama Member </td>
+                                <td><span t-field="pj.id_member_pelanggan"/></td>
+                            </tr>
+                            <tr>
+                                <td>Total Bayar </td>
+                                <td><span t-field="pj.total_payment"/></td>
+                            </tr>
+                            <tr>
+                                <td>Catatan </td>
+                                <td><span t-field="pj.description"/></td>
+                            </tr>
+                            <tr>
+                                <td>Penting!!! </td>
+                                <td><span t-field="pj.notes2"/></td>
+                            </tr>
+                        </table>
+                        <table class="table" style="width: 100%;">
+                        <h3 style="padding-top: 100pt; text-align: center;">DETAIL PEMBELIAN BARANG</h3>
+                            <tr>
+                                <td>Nama Barang</td>
+                                <td><span t-field="pj.detail_penjualan_barang_ids.list_barang_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td>Quantity</td>
+                                <td><span t-field="pj.detail_penjualan_barang_ids.qty"/></td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td><span t-field="pj.detail_penjualan_barang_ids.total_barang"/></td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

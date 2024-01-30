@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_doodexfutsal_pelanggan,access.doodexfutsal.pelanggan,model_doodexfutsal_pelanggan,,1,1,1,1
+access_doodexfutsal_penyewaan,access.doodexfutsal.penyewaan,model_doodexfutsal_penyewaan,,1,1,1,1
+access_detailpenjualanbarang,access.detailpenjualanbarang,model_detailpenjualanbarang,,1,1,1,1
+access_detailpenjualanbarangsint,access.detailpenjualanbarangsint,model_detailpenjualanbarangsint,,1,1,1,1
+access_doodexfutsal_lapangan,access.doodexfutsal.lapangan,model_doodexfutsal_lapangan,,1,1,1,1
+access_doodexfutsal_barang,access.doodexfutsal.barang,model_doodexfutsal_barang,,1,1,1,1
+access_doodexfutsal_barang,access.doodexfutsal.barang,model_doodexfutsal_barang,,1,1,1,1
+access_doodexfutsal_karyawan,access.doodexfutsal.karyawan,model_doodexfutsal_karyawan,,1,1,1,1
+access_doodexfutsal_penyewaansintetis,access.doodexfutsal.penyewaansintetis,model_doodexfutsal_penyewaansintetis,,1,1,1,1

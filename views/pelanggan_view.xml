@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <!-- futsal.project tree view -->
+        <record id="futsal_project_view_tree" model="ir.ui.view">
+            <field name="name">doodexfutsal.pelanggan.view.tree</field>
+            <field name="model">doodexfutsal.pelanggan</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="id_member"/>
+                    <field name="nama"/>
+                    <field name="email" widget="email"/>
+                    <field name="gender"/>
+                    <field name="tgl_daftar"/>
+                    <field name="alamat"/>
+                </tree>
+            </field>
+        </record>
+    
+        <!-- futsal.project form view -->
+        <record id="futsal_project_view_form" model="ir.ui.view">
+            <field name="name">doodexfutsal.pelanggan.view.form</field>
+            <field name="model">doodexfutsal.pelanggan</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="id_member" readonly="1"/>
+                            </h1>
+                        </div> 
+                    <field name="qr_code" widget='image'/>               
+                        <group>
+                            <group string="Data Diri">
+                                <field name="nama"/>
+                                <field name="gender"/>
+                                <field name="tgl_daftar"/>
+                                <field name="alamat"/>
+                            </group>
+                            <group string="Kontak">
+                                <field name="no_telp"/>
+                                <field name="email" widget="email"/>
+                                <field name="second_person"/>
+                                <field name="no_telp2"/>
+                            </group>
+                            <group string="Opsional">
+                                <field name="notes"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- dodexfutsal.pelanggan action window -->
+        <record id="dodexfutsal_pelanggan_action" model="ir.actions.act_window">
+            <field name="name">Member</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">doodexfutsal.pelanggan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="doodexfutsal_pelanggan_menu_act" name="Member" parent="doodexfutsal_pelanggan_menu_categ" action="dodexfutsal_pelanggan_action" sequence="2"/>
+    
+    </data>
+
+</odoo>

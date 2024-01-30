@@ -1,0 +1,25 @@
+<odoo>
+    <template id="report_pelanggan_futsal_template_pdf">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="pj">
+                    <div class="col-md-6">
+                        <!-- Sesuaikan nilai width dan height berdasarkan kebutuhan Anda -->
+                        <div style="width: 153pt; height: 223pt; margin: 5pt; font-size: 10pt; text-align: center; border: 1pt solid black; padding: 5pt;">
+                            <div style="font-size: 18pt; margin-bottom: 12pt;">FUTSAL DOODEX</div>
+                            <!-- Anda dapat menambahkan logo perusahaan Anda di sini -->
+                            <div style="padding-top: -20pt;">
+                                <img t-att-src="'data:image/png;base64,%s' % pj.qr_code" style="max-height: 85pt; max-width: 90%;" alt="QR Code"/>
+                            </div>
+                            <div style="font-size: 7pt;"><t t-esc="pj.id_member"/></div>
+                            <div style="padding-top: 10pt; font-size: 20pt;"><t t-esc="pj.nama"/></div>
+                            <div style="padding-top: 5pt;"><t t-esc="pj.gender"/></div>
+                            <div style="padding-top: 5pt;"><t t-esc="pj.tgl_daftar"/></div>
+                            <div style="padding-top: 5pt;"><t t-esc="pj.no_telp"/></div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

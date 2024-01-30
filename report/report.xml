@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="report_penyewaan_pdf" model="ir.actions.report">
+        <field name="name">Print Laporan Penyewaan Lapangan Vinyl</field> 
+        <field name="model">doodexfutsal.penyewaan</field>    
+        <field name="report_type">qweb-pdf</field>  
+        <field name="report_name">futsal_project.report_penyewaan_template_pdf</field>  
+        <field name="report_file">futsal_project.report_penyewaan_template_pdf</field>  
+        <field name="binding_model_id" ref="model_doodexfutsal_penyewaan"/>
+        <field name="binding_type">report</field>            
+    </record>
+
+    <record id="report_penyewaan_sintetis_pdf" model="ir.actions.report">
+        <field name="name">Print Laporan Penyewaan Lapangan Sintetis</field> 
+        <field name="model">doodexfutsal.penyewaansintetis</field>    
+        <field name="report_type">qweb-pdf</field>  
+        <field name="report_name">futsal_project.report_penyewaan_sintetis_template_pdf</field>  
+        <field name="report_file">futsal_project.report_penyewaan_sintetis_template_pdf</field>  
+        <field name="binding_model_id" ref="model_doodexfutsal_penyewaansintetis"/>
+        <field name="binding_type">report</field>            
+    </record>    
+
+    <record id="report_pelanggan_pdf" model="ir.actions.report">
+        <field name="name">Cetak Kartu Member</field> 
+        <field name="model">doodexfutsal.pelanggan</field>    
+        <field name="report_type">qweb-pdf</field>  
+        <field name="report_name">futsal_project.report_pelanggan_futsal_template_pdf</field>  
+        <field name="report_file">futsal_project.report_pelanggan_futsal_template_pdf</field>  
+        <field name="binding_model_id" ref="model_doodexfutsal_pelanggan"/>
+        <field name="binding_type">report</field>            
+    </record>
+
+</odoo>

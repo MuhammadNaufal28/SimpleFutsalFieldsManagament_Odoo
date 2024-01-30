@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+<!-- doodexfutsal.lapangan tree view -->
+<record id="doodexfutsal_lapangan_view_tree" model="ir.ui.view">
+    <field name="name">doodexfutsal.lapangan.view.tree</field>
+    <field name="model">doodexfutsal.lapangan</field>
+    <field name="arch" type="xml">
+        <tree>
+            <!-- Add your fields here -->
+                <field name="name"/>
+                <field name="harga"/>
+        </tree>
+    </field>
+</record>
+
+<!-- doodexfutsal.lapangan form view -->
+<record id="doodexfutsal_lapangan_view_form" model="ir.ui.view">
+    <field name="name">doodexfutsal.lapangan.view.form</field>
+    <field name="model">doodexfutsal.lapangan</field>
+    <field name="arch" type="xml">
+        <form string="">
+            <sheet>
+                <group>
+                    <!-- Add your fields here -->
+                        <field name="name"/>
+                        <field name="harga"/>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<!-- do0dexfutsal.lapangan action window -->
+<record id="dodoexfutsal_lapangan_action" model="ir.actions.act_window">
+    <field name="name">Lapangan</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">doodexfutsal.lapangan</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<!-- This Menu Item must have a parent and an action -->
+<menuitem id="doodexfutsal_lapangan_menu_act" 
+          name="Lapangan" 
+          parent="doodexfutsal_lapangan_menu_categ" 
+          action="dodoexfutsal_lapangan_action" 
+          sequence="2"/>
+    
+        
+    
+    </data>
+    
+
+</odoo>
