@@ -33,11 +33,11 @@ class DoodexfutsalPenyewaansintetis(models.Model):
     description = fields.Text(string='Description')
     notes2 = fields.Char(default="Jika pada saat booking tidak membayar dp maka akan hangus apabila ada tim lain yang ingin booking di hari yang sama", string='Catatan')
     qr_code = fields.Char(compute='_compute_qr_code', string='QR Code')
-    tipe_lapangan_id = fields.Many2one(comodel_name='doodexfutsal.lapangan', string='Tipe Lapangan', default='sintetis',  domain=[('name','=','sintetis')])
+    tipe_lapangan_id = fields.Many2one(comodel_name='doodexfutsal.lapangan', string='Tipe Lapangan', domain=[('name', '=', 'sintetis')], required=True)
     total_sewa = fields.Integer(compute='_compute_total_sewa', string='total_sewa')
     barang_ids = fields.Many2many(comodel_name='doodexfutsal.barang', string='barang')
     karyawan_id = fields.Many2one(comodel_name='doodexfutsal.karyawan', string='Penanggung Jawab')
-    detail_penjualan_barang_ids = fields.One2many(comodel_name='detailpenjualanbarang', inverse_name='penjualan_barang_id', string='Detail Penjualan Barang')
+    detail_penjualan_barang_ids = fields.One2many(comodel_name='detailpenjualanbarangsint', inverse_name='penjualan_barang_id', string='Detail Penjualan Barang')
     state = fields.Selection([
         ('draft', 'Draft'), ('confirm', 'Confirm'), ('done', 'Done'), ('cancel', 'Cancel')
     ], string='State', readonly=True, default="draft", required=True)
@@ -61,9 +61,8 @@ class DoodexfutsalPenyewaansintetis(models.Model):
             total_sewa = record.total_sewa
 
             if record.membership:
-                # Berikan potongan 20% hanya pada total_sewa jika membership diatur sebagai True
-                potongan = 0.2  # 20%
-                total_sewa *= (1 - potongan)
+                potongan = 0.8 
+                total_sewa *= potongan
 
             record.total_payment = total_sewa + total_barang_price
 
@@ -94,6 +93,7 @@ class DoodexfutsalPenyewaansintetis(models.Model):
                 qr_image = base64.b64encode(temp.getvalue())
                 record.update({'qr_code': qr_image})
 
+
     @api.model
     def create(self, vals):
         if vals.get('referensi', _("New")) == _("New"):
@@ -101,9 +101,12 @@ class DoodexfutsalPenyewaansintetis(models.Model):
         record = super(DoodexfutsalPenyewaansintetis, self).create(vals)
         return record
 
+
     def unlink(self):
-        if self.filtered(lambda line : line.state != 'draft'):
-            raise ValidationError('Tidak dapat menghapus selain draft')
+        for record in self:
+            if record.state != 'draft':
+                raise ValidationError('Cannot delete records other than in draft state')
+        super(DoodexfutsalPenyewaansintetis, self).unlink()
 
     @api.depends('pelanggan_id')
     def _compute_id_member_pelanggan(self):
@@ -115,7 +118,7 @@ class Detailpenjualanbarangsint(models.Model):
     _description = 'Detailpenjualanbarangsint'
 
     name = fields.Char(string='Nama Barang')
-    penjualan_barang_id = fields.Many2one(comodel_name='doodexfutsal.penyewaan', string='penjualan_barang')
+    penjualan_barang_id = fields.Many2one(comodel_name='doodexfutsal.penyewaansintetis', string='penjualan_barang', ondelete='cascade')
     list_barang_id = fields.Many2one(comodel_name='doodexfutsal.barang', string='Nama Barang')
     harga_barang = fields.Integer(related='list_barang_id.harga_barang', string='Harga Barang', store=True)  # Tambahkan field harga_barang
     qty = fields.Integer(string='Quantity')

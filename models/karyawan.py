@@ -15,5 +15,4 @@ class DoodexfutsalKaryawan(models.Model):
     gaji = fields.Integer(string='Gaji per bulan')
     alamat = fields.Html(string='Alamat')
     gender = fields.Selection(string='Gender', selection=[('pria', 'Pria'), ('wanita', 'Wanita'),])
-    foto = fields.Image(string='foto', max_width=3, max_height=4)
-    
+    foto = fields.Binary(string='Foto')

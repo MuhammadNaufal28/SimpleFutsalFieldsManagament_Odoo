@@ -32,24 +32,23 @@
                                 <td><span t-field="pj.description"/></td>
                             </tr>
                             <tr>
-                                <td>Penting!!! </td>
                                 <td><span t-field="pj.notes2"/></td>
                             </tr>
                         </table>
                         <table class="table" style="width: 100%;">
-                        <h3 style="padding-top: 100pt; text-align: center;">DETAIL PEMBELIAN BARANG</h3>
+                            <h3 style="padding-top: 100pt; text-align: center;">DETAIL PEMBELIAN BARANG</h3>
                             <tr>
-                                <td>Nama Barang</td>
-                                <td><span t-field="pj.detail_penjualan_barang_ids.list_barang_id.name"/></td>
+                                <th>Nama Barang</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
                             </tr>
-                            <tr>
-                                <td>Quantity</td>
-                                <td><span t-field="pj.detail_penjualan_barang_ids.qty"/></td>
-                            </tr>
-                            <tr>
-                                <td>Total</td>
-                                <td><span t-field="pj.detail_penjualan_barang_ids.total_barang"/></td>
-                            </tr>
+                            <t t-foreach="pj.detail_penjualan_barang_ids" t-as="detail">
+                                <tr>
+                                    <td><span t-field="detail.list_barang_id.name"/></td>
+                                    <td><span t-field="detail.qty"/></td>
+                                    <td><span t-field="detail.total_barang"/></td>
+                                </tr>
+                            </t>
                         </table>
                     </div>
                 </t>
