@@ -14,33 +14,35 @@ except ImportError:
 class DoodexfutsalPenyewaansintetis(models.Model):
     _name = 'doodexfutsal.penyewaansintetis'
     _description = 'Doodexfutsal Penyewaansintetis'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     referensi = fields.Char(
         string="Referensi",
         required=True, copy=False, readonly=True,
-        default=lambda self: _('Referensi'))
-    membership = fields.Boolean(string='Apakah Member?', default=False)
-    pelanggan_id = fields.Many2one(comodel_name='doodexfutsal.pelanggan', string='Id Pelanggan')
-    id_member_pelanggan = fields.Char(compute='_compute_id_member_pelanggan', string='Nama Member')
-    name = fields.Char(string='Nama Team')
-    total_payment = fields.Integer(compute='_compute_bayar', string='Total Pembayaran', store=True)
-    method = fields.Selection(string='Metode Pembayaran', selection=[('qris', 'Qris'), ('bank_transfer', 'Bank Transfer'), ('cash', 'Cash'),])
-    status = fields.Selection(string='Status', selection=[('done', 'Sudah Lunas'), ('notyet', 'Belum Lunas'),])
-    start_date = fields.Datetime(string='Start Date', required=True)
-    end_date = fields.Datetime(string='End Date', required=True)
-    berapa_jam = fields.Integer(compute='_compute_total_jam', string='Berapa Jam')
-    tgl_transaksi = fields.Datetime(string='Tanggal Transaksi', default=fields.Datetime.now())    
-    description = fields.Text(string='Description')
-    notes2 = fields.Char(default="Jika pada saat booking tidak membayar dp maka akan hangus apabila ada tim lain yang ingin booking di hari yang sama", string='Catatan')
-    qr_code = fields.Char(compute='_compute_qr_code', string='QR Code')
-    tipe_lapangan_id = fields.Many2one(comodel_name='doodexfutsal.lapangan', string='Tipe Lapangan', domain=[('name', '=', 'sintetis')], required=True)
-    total_sewa = fields.Integer(compute='_compute_total_sewa', string='total_sewa')
-    barang_ids = fields.Many2many(comodel_name='doodexfutsal.barang', string='barang')
-    karyawan_id = fields.Many2one(comodel_name='doodexfutsal.karyawan', string='Penanggung Jawab')
-    detail_penjualan_barang_ids = fields.One2many(comodel_name='detailpenjualanbarangsint', inverse_name='penjualan_barang_id', string='Detail Penjualan Barang')
+        default=lambda self: _('Referensi'), tracking=True)
+    membership = fields.Boolean(string='Apakah Member?', tracking=True ,default=False)
+    pelanggan_id = fields.Many2one(comodel_name='doodexfutsal.pelanggan', tracking=True , string='Id Pelanggan')
+    id_member_pelanggan = fields.Char(compute='_compute_id_member_pelanggan', tracking=True , string='Nama Member', readonly=True)
+    name = fields.Char(string='Nama Team', tracking=True )
+    total_payment = fields.Integer(compute='_compute_bayar', string='Total Pembayaran', tracking=True , store=True)
+    method = fields.Selection(string='Metode Pembayaran', tracking=True , selection=[('qris', 'Qris'), ('bank_transfer', 'Bank Transfer'), ('cash', 'Cash'),])
+    status = fields.Selection(string='Status', tracking=True , selection=[('done', 'Sudah Lunas'), ('notyet', 'Belum Lunas'),])
+    start_date = fields.Datetime(string='Start Date', required=True, tracking=True)
+    end_date = fields.Datetime(string='End Date', required=True, tracking=True)
+    berapa_jam = fields.Integer(compute='_compute_total_jam', string='Berapa Jam', tracking=True)
+    tgl_transaksi = fields.Datetime(string='Tanggal Transaksi', default=fields.Datetime.now(), tracking=True)    
+    description = fields.Text(string='Description', tracking=True)
+    notes2 = fields.Char(default="Jika pada saat booking tidak membayar dp maka akan hangus apabila ada tim lain yang ingin booking di hari yang sama", string='Catatan', tracking=True)
+    qr_code = fields.Char(compute='_compute_qr_code', string='QR Code', tracking=True)
+    tipe_lapangan_id = fields.Many2one(comodel_name='doodexfutsal.lapangan', string='Tipe Lapangan', domain=[('name', '=', 'sintetis')], required=True, tracking=True)
+    total_sewa = fields.Integer(compute='_compute_total_sewa', string='total_sewa', tracking=True)
+    barang_ids = fields.Many2many(comodel_name='doodexfutsal.barang', string='barang', tracking=True)
+    karyawan_id = fields.Many2one(comodel_name='doodexfutsal.karyawan', string='Penanggung Jawab', tracking=True)
+    detail_penjualan_barang_ids = fields.One2many(comodel_name='detailpenjualanbarangsint', inverse_name='penjualan_barang_id', string='Detail Penjualan Barang', tracking=True)
     state = fields.Selection([
         ('draft', 'Draft'), ('confirm', 'Confirm'), ('done', 'Done'), ('cancel', 'Cancel')
-    ], string='State', readonly=True, default="draft", required=True)
+    ], string='State', readonly=True, default="draft", required=True, tracking=True)
+
 
     def action_confirm(self):
         self.write({'state': 'confirm'})

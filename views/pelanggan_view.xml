@@ -19,6 +19,23 @@
                 </tree>
             </field>
         </record>
+        
+        <record id="pelanggan_doodex_view_kanban" model="ir.ui.view">
+            <field name="name">doodexfutsal.pelanggan.view.kanban</field>
+            <field name="model">doodexfutsal.pelanggan</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="kanban-box">
+                                <field name="nama"/>
+                                <field name="gender"/>
+                                <field name="tgl_daftar"/>
+                                <field name="alamat"/>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
     
         <!-- futsal.project form view -->
         <record id="futsal_project_view_form" model="ir.ui.view">
@@ -60,7 +77,7 @@
             <field name="name">Member</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">doodexfutsal.pelanggan</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban</field>
         </record>
 
         <!-- This Menu Item must have a parent and an action -->

@@ -9,6 +9,7 @@
             <tree>
                 <!-- Add your fields here -->
                 <field name="name"/>
+                <field name="id_member_pelanggan"/>
                 <field name="membership"/>
                 <field name="start_date"/>
                 <field name="end_date"/>
@@ -39,6 +40,8 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
               </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Dibayar" bg_color="bg-success"
+                            attrs="{'invisible': [('status', '!=', 'done')]}"/>
                     <div class="oe_title">
                         <h1>
                             <field name="referensi" readonly="1"/>
@@ -81,6 +84,11 @@
                         </group>                            
                     </group>
                 </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                    </div>
             </form>
         </field>
     </record>
@@ -90,7 +98,7 @@
         <field name="name">doodexfutsal.penyewaansintetis.view.calendar</field>
         <field name="model">doodexfutsal.penyewaansintetis</field>
         <field name="arch" type="xml">
-            <calendar string="Doodexfutsal Penyewaan" date_start="start_date" date_stop="end_date">
+            <calendar string="Doodexfutsal Penyewaan" date_start="start_date" date_stop="end_date" event_open_popup="True" quick_add="false">
                 <field name="name"/>
                 <field name="membership"/>
                 <field name="start_date"/>
