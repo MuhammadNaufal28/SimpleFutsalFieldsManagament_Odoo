@@ -114,6 +114,7 @@ class DoodexfutsalPenyewaansintetis(models.Model):
     def _compute_id_member_pelanggan(self):
         for record in self:
             record.id_member_pelanggan = record.pelanggan_id.nama
+            record.name = record.pelanggan_id.team_name
 
 class Detailpenjualanbarangsint(models.Model):
     _name = 'detailpenjualanbarangsint'

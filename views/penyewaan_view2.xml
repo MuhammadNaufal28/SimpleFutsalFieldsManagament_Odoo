@@ -39,6 +39,8 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Dibayar" bg_color="bg-success"
+                        attrs="{'invisible': [('status', '!=', 'done')]}"/>
                     <div class="oe_title">
                         <h1>
                             <field name="referensi" readonly="1"/>
@@ -49,19 +51,19 @@
                         <group string="Pelanggan">
                             <field name="membership"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="pelanggan_id"  attrs="{'invisible': [('membership', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="name" attrs="{'invisible': [('membership', '=', True)], 'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="name" attrs="{'readonly': ['|',('state', '!=', 'draft'), ('membership', '=', True)]}"/>
                             <field name="id_member_pelanggan" attrs="{'invisible': [('membership', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/> 
                             <field name="tgl_transaksi" readonly="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>                    
                         </group>
                         <group string="Lapangan">
                             <field name="start_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="end_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="tipe_lapangan_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>  
+                            <field name="tipe_lapangan_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>  
                             <field name="berapa_jam" readonly="1"/>  
                             <field name="karyawan_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>                 
                         </group>      
                         <group string="Pembayaran">
-                            <field name="total_payment" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="total_payment" readonly="1"/>
                             <!-- <field name="total_sewa"/> -->
                             <field name="status" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="method" attrs="{'readonly': [('state', '!=', 'draft')]}"/>                
@@ -73,7 +75,7 @@
                         <group name="detailpenjualanbarang" string="Pembelian Barang">
                             <field name="detail_penjualan_barang_ids" attrs="{'readonly': [('state', '!=', 'draft')]}">
                                 <tree editable="bottom">
-                                    <field name="list_barang_id"/>   
+                                    <field name="list_barang_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>   
                                     <field name="qty"/> 
                                     <field name="total_barang"/>                                        
                                 </tree>
@@ -81,6 +83,11 @@
                         </group>          
                     </group>
                 </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                    </div>
             </form>
         </field>
     </record>
@@ -90,7 +97,8 @@
         <field name="name">doodexfutsal.penyewaan.calendar</field>
         <field name="model">doodexfutsal.penyewaan</field>
         <field name="arch" type="xml">
-            <calendar string="Doodexfutsal Penyewaan" date_start="start_date" date_stop="end_date" event_open_popup='False'>
+            <calendar string="Doodexfutsal Penyewaan" date_start="start_date" 
+            date_stop="end_date" event_open_popup="True" quick_add="false">
                 <field name="name"/>
                 <field name="membership"/>
                 <field name="start_date"/>

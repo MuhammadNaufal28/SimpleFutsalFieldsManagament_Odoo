@@ -11,77 +11,161 @@ try:
 except ImportError:
     base64 = None
 
+from odoo import fields, models, _
+
 class DoodexfutsalPenyewaan(models.Model):
     _name = 'doodexfutsal.penyewaan'
     _description = 'Doodexfutsal Penyewaan'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     # Field untuk nomor referensi
     referensi = fields.Char(
         string="Referensi",
         required=True, copy=False, readonly=True,
-        default=lambda self: _('Referensi'))
+        default=lambda self: _('Referensi'),
+        tracking=True
+    )
 
     # Field untuk menandai apakah pelanggan adalah member
-    membership = fields.Boolean(string='Apakah Member?', default=False)
+    membership = fields.Boolean(
+        string='Apakah Member?',
+        default=False,
+        tracking=True
+    )
 
     # Field untuk menyimpan data pelanggan
-    pelanggan_id = fields.Many2one(comodel_name='doodexfutsal.pelanggan', string='Id Pelanggan')
+    pelanggan_id = fields.Many2one(
+        comodel_name='doodexfutsal.pelanggan',
+        string='Id Pelanggan',
+        tracking=True
+    )
 
     # Field untuk menyimpan nama member (dihasilkan oleh fungsi komputasi)
-    id_member_pelanggan = fields.Char(compute='_compute_id_member_pelanggan', string='Nama Member')
+    id_member_pelanggan = fields.Char(
+        compute='_compute_id_member_pelanggan',
+        string='Nama Member',
+        tracking=True
+    )
 
     # Field untuk nama tim
-    name = fields.Char(string='Nama Team')
+    name = fields.Char(
+        string='Nama Team',
+        tracking=True
+    )
 
     # Field untuk total pembayaran (dihasilkan oleh fungsi komputasi)
-    total_payment = fields.Integer(compute='_compute_bayar', string='Total Pembayaran', store=True)
+    total_payment = fields.Integer(
+        compute='_compute_bayar',
+        string='Total Pembayaran',
+        store=True,
+        tracking=True
+    )
 
     # Field untuk metode pembayaran
-    method = fields.Selection(string='Metode Pembayaran', selection=[('qris', 'Qris'), ('bank_transfer', 'Bank Transfer'), ('cash', 'Cash'),])
+    method = fields.Selection(
+        string='Metode Pembayaran',
+        selection=[('qris', 'Qris'), ('bank_transfer', 'Bank Transfer'), ('cash', 'Cash')],
+        tracking=True
+    )
 
     # Field untuk status pembayaran
-    status = fields.Selection(string='Status', selection=[('done', 'Sudah Lunas'), ('notyet', 'Belum Lunas'),])
+    status = fields.Selection(
+        string='Status',
+        selection=[('done', 'Sudah Lunas'), ('notyet', 'Belum Lunas')],
+        tracking=True
+    )
 
     # Field untuk tanggal mulai penyewaan
-    start_date = fields.Datetime(string='Start Date', required=True)
+    start_date = fields.Datetime(
+        string='Start Date',
+        required=True,
+        tracking=True
+    )
 
     # Field untuk tanggal akhir penyewaan
-    end_date = fields.Datetime(string='End Date', required=True)
+    end_date = fields.Datetime(
+        string='End Date',
+        required=True,
+        tracking=True
+    )
 
     # Field untuk tanggal transaksi
-    tgl_transaksi = fields.Datetime(string='Tanggal Transaksi', default=fields.Datetime.now())
+    tgl_transaksi = fields.Datetime(
+        string='Tanggal Transaksi',
+        default=fields.Datetime.now(),
+        tracking=True
+    )
 
     # Field untuk durasi penyewaan dalam jam (dihasilkan oleh fungsi komputasi)
-    berapa_jam = fields.Integer(compute='_compute_total_jam', string='Berapa Jam')
+    berapa_jam = fields.Integer(
+        compute='_compute_total_jam',
+        string='Berapa Jam',
+        tracking=True
+    )
 
     # Field untuk deskripsi penyewaan
-    description = fields.Text(string='Description')
+    description = fields.Text(
+        string='Description',
+        tracking=True
+    )
 
     # Catatan mengenai pembayaran DP
-    notes2 = fields.Char(default="Jika pada saat booking tidak membayar dp maka akan hangus apabila ada tim lain yang ingin booking di hari yang sama", string='Catatan')
+    notes2 = fields.Char(
+        default="Jika pada saat booking tidak membayar dp maka akan hangus apabila ada tim lain yang ingin booking di hari yang sama",
+        string='Catatan',
+        tracking=True
+    )
 
     # Field untuk menyimpan QR Code (dihasilkan oleh fungsi komputasi)
-    qr_code = fields.Char(compute='_compute_qr_code', string='QR Code')
+    qr_code = fields.Char(
+        compute='_compute_qr_code',
+        string='QR Code',
+        tracking=True
+    )
 
     # Field untuk tipe lapangan yang disewa
-    tipe_lapangan_id = fields.Many2one(comodel_name='doodexfutsal.lapangan', string='Tipe Lapangan', domain=[('name','=','vinyl')], required=True) 
+    tipe_lapangan_id = fields.Many2one(
+        comodel_name='doodexfutsal.lapangan',
+        string='Tipe Lapangan',
+        domain=[('name','=','vinyl')],
+        required=True,
+        tracking=True
+    )
 
     # Field untuk total biaya sewa (dihasilkan oleh fungsi komputasi)
-    total_sewa = fields.Integer(compute='_compute_total_sewa', string='total_sewa')
+    total_sewa = fields.Integer(
+        compute='_compute_total_sewa',
+        string='total_sewa',
+        tracking=True
+    )
 
     # Barang yang disewa
-    barang_ids = fields.Many2many(comodel_name='doodexfutsal.barang', string='barang')
+    barang_ids = fields.Many2many(
+        comodel_name='doodexfutsal.barang',
+        string='barang',
+        tracking=True
+    )
 
     # Karyawan yang bertanggung jawab
-    karyawan_id = fields.Many2one(comodel_name='doodexfutsal.karyawan', string='Penanggung Jawab')
+    karyawan_id = fields.Many2one(
+        comodel_name='doodexfutsal.karyawan',
+        string='Penanggung Jawab',
+        tracking=True
+    )
 
     # Detail penjualan barang
-    detail_penjualan_barang_ids = fields.One2many(comodel_name='detailpenjualanbarang', inverse_name='penjualan_barang_id', string='Detail Penjualan Barang')
+    detail_penjualan_barang_ids = fields.One2many(
+        comodel_name='detailpenjualanbarang',
+        inverse_name='penjualan_barang_id',
+        string='Detail Penjualan Barang',
+        tracking=True
+    )
 
     # State dari penyewaan (draft, confirm, done, cancel)
     state = fields.Selection([
         ('draft', 'Draft'), ('confirm', 'Confirm'), ('done', 'Done'), ('cancel', 'Cancel')
-    ], string='State', readonly=True, default="draft", required=True)
+    ], string='State', readonly=True, default="draft", required=True, tracking=True)
+
 
     # Fungsi untuk mengonfirmasi penyewaan
     def action_confirm(self):
@@ -161,6 +245,7 @@ class DoodexfutsalPenyewaan(models.Model):
     def _compute_id_member_pelanggan(self):
         for record in self:
             record.id_member_pelanggan = record.pelanggan_id.nama
+            record.name = record.pelanggan_id.team_name
 
 # Model untuk detail penjualan barang
 class Detailpenjualanbarang(models.Model):
