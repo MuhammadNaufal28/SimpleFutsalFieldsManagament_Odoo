@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="Referensi_Penyewaan_Sintetis" model="ir.sequence">
+        <field name="name">Referensi Penyewaan Sintetis</field>
+        <field name="code">referensi.penyewaan.sintetis</field>
+        <field name="prefix">%(day)s%(month)s%(year)sBOOK</field>
+        <field name="padding">5</field>
+        <field name="suffix">FTSLS</field>
+        <field name="company_id" eval="False"/>
+    </record>
+ 
+</odoo>

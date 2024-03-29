@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_kode_pembelian_pelanggan" model="ir.sequence">
+        <field name="name">Referensi Pelanggan</field>
+        <field name="code">id_member.pelanggan</field>
+        <field name="prefix">PL%(day)s%(month)s%(year)sMBR</field>
+        <field name="padding">5</field>
+        <field name="suffix">FP</field>
+        <field name="company_id" eval="False"/>
+    </record>
+ 
+</odoo>

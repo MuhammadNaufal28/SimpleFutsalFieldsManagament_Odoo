@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- doodexfutsal.penyewaansintetis tree view -->
+    <record id="doodexfutsal_penyewaansintetis_view_tree" model="ir.ui.view">
+        <field name="name">doodexfutsal.penyewaansintetis.view.tree</field>
+        <field name="model">doodexfutsal.penyewaansintetis</field>
+        <field name="arch" type="xml">
+            <tree>
+                <!-- Add your fields here -->
+                <field name="name"/>
+                <field name="id_member_pelanggan"/>
+                <field name="membership"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="description"/>
+                <field name="tipe_lapangan_id"/>
+                <field name="state"                    
+                    decoration-info="state == 'cancel'"
+                    decoration-danger="state == 'done'"
+                    decoration-success="state == 'draft'"
+                    decoration-primary="state == 'confirm'"                  
+                    widget="badge"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <!-- doodexfutsal.penyewaansintetis form view -->
+    <record id="doodexfutsal_penyewaansintetis_view_form" model="ir.ui.view">
+        <field name="name">doodexfutsal.penyewaansintetis.view.form</field>
+        <field name="model">doodexfutsal.penyewaansintetis</field>
+        <field name="arch" type="xml">
+            <form string="">
+              <header>
+                    <button name="action_confirm" type="object" string="confirm" states="draft" class="btn btn-success oe_highlight"/>
+                    <button name="action_done" type="object" string="done" states="confirm" class="btn btn-primary oe_highlight"/>
+                    <button name="action_cancel" type="object" string="cancel" states="confirm" confirm="apakah quotation ini akan dicancel?" class="btn btn-danger oe_highlight"/>
+                    <button name="action_draft" type="object" string="kembali ke draft" states="cancel" confirm="apakah quotation ini akan diedit?" class="btn btn-info oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
+              </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Dibayar" bg_color="bg-success"
+                            attrs="{'invisible': [('status', '!=', 'done')]}"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="referensi" readonly="1"/>
+                        </h1>
+                    </div>  
+                    <field name="qr_code" widget='image'/>          
+                    <group>
+                        <group string="Pelanggan">
+                            <field name="membership" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                            <field name="pelanggan_id" attrs="{'invisible': [('membership', '=', False)], 'readonly': [('state', '!=', 'draft')]}" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            <field name="name" attrs="{'readonly': ['|',('state', '!=', 'draft'), ('membership', '=', True)]}"/>
+                            <field name="id_member_pelanggan" attrs="{'invisible': [('membership', '=', False)]}"/> 
+                            <field name="tgl_transaksi" readonly="1"/>    
+                            <field name="contact"/>                
+                        </group>
+                        <group string="Lapangan">
+                            <field name="start_date" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                            <field name="end_date" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                            <field name="tipe_lapangan_id" attrs="{'readonly' : [('state','!=','draft')]}" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>  
+                            <field name="berapa_jam" readonly="1"/>  
+                            <field name="karyawan_id" attrs="{'readonly' : [('state','!=','draft')]}" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>                 
+                        </group>      
+                        <group string="Pembayaran">
+                            <field name="total_payment" readonly="1"/>
+                            <!-- <field name="total_sewa"/> -->
+                            <field name="status" attrs="{'readonly' : [('state','!=','draft')]}"/>
+                            <field name="method" attrs="{'readonly' : [('state','!=','draft')]}"/>                
+                        </group> 
+                        <group string="Catatan">
+                            <field name="description"/> 
+                            <field name="notes2" readonly="1"/>                   
+                        </group>  
+                        <group name="detailpenjualanbarang" string="Pembelian Barang">
+                          <field name="detail_penjualan_barang_ids" attrs="{'readonly' : [('state','!=','draft')]}">
+                            <tree editable='bottom'>
+                                <field name="list_barang_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>   
+                                <field name="qty"/> 
+                                <field name="total_barang"/>                                        
+                            </tree>
+                          </field> 
+                        </group>                            
+                    </group>
+                </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                    </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- doodexfutsal.penyewaansintetis calendar view -->
+    <record id="doodexfutsal_penyewaansintetis_view_calendar" model="ir.ui.view">
+        <field name="name">doodexfutsal.penyewaansintetis.view.calendar</field>
+        <field name="model">doodexfutsal.penyewaansintetis</field>
+        <field name="arch" type="xml">
+            <calendar string="Doodexfutsal Penyewaan" date_start="start_date" 
+            date_stop="end_date" event_open_popup="True" quick_add="false">
+                <field name="name"/>
+                <field name="membership"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="description"/>
+                <field name="tipe_lapangan_id"/>
+                <field name="total_payment"/>
+                <!-- Kolom lain sesuai kebutuhan -->
+            </calendar>
+        </field>
+    </record>
+
+    <!-- doodexfutsal.penyewaansintetis action window -->
+    <record id="doodexfutsal_penyewaansintetis_action" model="ir.actions.act_window">
+        <field name="name">Penyewaan Sintetis</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">doodexfutsal.penyewaansintetis</field>
+        <field name="view_mode">tree,form,calendar</field>
+    </record>
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="doodexfutsal_penyewaansintetis_menu_act" 
+              name="Penyewaan Sintetis" 
+              parent="doodexfutsal_penyewaan_menu_categ" 
+              action="doodexfutsal_penyewaansintetis_action" 
+              sequence="10"/>
+</odoo>
