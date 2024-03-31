@@ -33,6 +33,7 @@ class DoodexfutsalPenyewaansintetis(models.Model):
     tgl_transaksi = fields.Datetime(string='Tanggal Transaksi', default=fields.Datetime.now(), tracking=True)  
     contact = fields.Char(string='No Telepon', readonly=True)
     description = fields.Text(string='Description', tracking=True)
+    whatsapp_message = fields.Char(string='Catatan Whatsapp',tracking=True)
     notes2 = fields.Char(default="Jika pada saat booking tidak membayar dp maka akan hangus apabila ada tim lain yang ingin booking di hari yang sama", string='Catatan', tracking=True)
     qr_code = fields.Char(compute='_compute_qr_code', string='QR Code', tracking=True)
     tipe_lapangan_id = fields.Many2one(comodel_name='doodexfutsal.lapangan', string='Tipe Lapangan', domain=[('name', '=', 'sintetis')], required=True, tracking=True)
@@ -60,7 +61,7 @@ class DoodexfutsalPenyewaansintetis(models.Model):
     def send_whatsapp(self):
         return {
                 'type': 'ir.actions.act_url',
-                'url': "https://api.whatsapp.com/send?phone=" + self.contact + "&text=" + "bang, jangan lupa besok ada jadwal futsal di lapangan primer",
+                'url': "https://api.whatsapp.com/send?phone=" + self.contact + "&text=" + self.whatsapp_message,
                 'target': 'new',
                 'res_id': self.id,
             }

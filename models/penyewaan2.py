@@ -302,3 +302,4 @@ class Detailpenjualanbarang(models.Model):
     def _compute_total_barang(self):
         for record in self:
             record.total_barang = record.qty * record.harga_barang
+            

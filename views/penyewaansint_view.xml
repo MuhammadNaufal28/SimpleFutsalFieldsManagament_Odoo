@@ -9,7 +9,6 @@
             <tree>
                 <!-- Add your fields here -->
                 <field name="name"/>
-                <field name="id_member_pelanggan"/>
                 <field name="membership"/>
                 <field name="start_date"/>
                 <field name="end_date"/>
@@ -33,10 +32,11 @@
         <field name="arch" type="xml">
             <form string="">
               <header>
-                    <button name="action_confirm" type="object" string="confirm" states="draft" class="btn btn-success oe_highlight"/>
+                    <button name="action_confirm" type="object" string="confirm" states="draft" class="oe_highlight"/>
                     <button name="action_done" type="object" string="done" states="confirm" class="btn btn-primary oe_highlight"/>
                     <button name="action_cancel" type="object" string="cancel" states="confirm" confirm="apakah quotation ini akan dicancel?" class="btn btn-danger oe_highlight"/>
-                    <button name="action_draft" type="object" string="kembali ke draft" states="cancel" confirm="apakah quotation ini akan diedit?" class="btn btn-info oe_highlight"/>
+                    <button name="action_draft" type="object" string="kembali ke draft" states="cancel" class="btn btn-info oe_highlight"/>
+                    <button string="Send Whatsapp" name="send_whatsapp" type="object" class="btn btn-success oe_highlight" icon="fa-whatsapp"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
               </header>
                 <sheet>
