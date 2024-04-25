@@ -24,6 +24,7 @@ class DoodexfutsalPenyewaansintetis(models.Model):
     pelanggan_id = fields.Many2one(comodel_name='doodexfutsal.pelanggan', tracking=True , string='Id Pelanggan')
     id_member_pelanggan = fields.Char(compute='_compute_id_member_pelanggan', tracking=True , string='Nama Member', readonly=True)
     name = fields.Char(string='Nama Team', tracking=True )
+    contact = fields.Char(string='No Telepon', tracking=True)
     total_payment = fields.Integer(compute='_compute_bayar', string='Total Pembayaran', tracking=True , store=True)
     method = fields.Selection(string='Metode Pembayaran', tracking=True , selection=[('qris', 'Qris'), ('bank_transfer', 'Bank Transfer'), ('cash', 'Cash'),])
     status = fields.Selection(string='Status', tracking=True , selection=[('done', 'Sudah Lunas'), ('notyet', 'Belum Lunas'),])
@@ -42,6 +43,18 @@ class DoodexfutsalPenyewaansintetis(models.Model):
     state = fields.Selection([
         ('draft', 'Draft'), ('confirm', 'Confirm'), ('done', 'Done'), ('cancel', 'Cancel')
     ], string='State', readonly=True, default="draft", required=True, tracking=True)
+
+
+    def action_open_wizard_whatsapp(self):
+        wizard_form_id = self.env.ref('futsal_project.whatsapp_message_wizard_form').id
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'WhatsApp Wizard',  # Nama yang akan muncul di judul jendela
+            'view_mode': 'form',
+            'res_model': 'whatsapp.message.wizard',
+            'view_id': wizard_form_id,
+            'target': 'new',
+        }
 
 
     def action_confirm(self):
@@ -114,7 +127,8 @@ class DoodexfutsalPenyewaansintetis(models.Model):
     def _compute_id_member_pelanggan(self):
         for record in self:
             record.id_member_pelanggan = record.pelanggan_id.nama
-            record.name = record.pelanggan_id.team_name
+            record.name = record.pelanggan_id.name
+            record.contact = record.pelanggan_id.no_telp
 
 class Detailpenjualanbarangsint(models.Model):
     _name = 'detailpenjualanbarangsint'

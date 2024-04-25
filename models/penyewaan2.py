@@ -32,6 +32,9 @@ class DoodexfutsalPenyewaan(models.Model):
         default=False,
         tracking=True
     )
+    contact = fields.Char(
+        string='No Telepon', 
+        tracking=True)
 
     # Field untuk menyimpan data pelanggan
     pelanggan_id = fields.Many2one(
@@ -245,7 +248,8 @@ class DoodexfutsalPenyewaan(models.Model):
     def _compute_id_member_pelanggan(self):
         for record in self:
             record.id_member_pelanggan = record.pelanggan_id.nama
-            record.name = record.pelanggan_id.team_name
+            record.name = record.pelanggan_id.name
+            record.contact = record.pelanggan_id.no_telp
 
 # Model untuk detail penjualan barang
 class Detailpenjualanbarang(models.Model):

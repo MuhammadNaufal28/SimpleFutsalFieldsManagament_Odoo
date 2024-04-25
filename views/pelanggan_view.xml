@@ -16,7 +16,7 @@
                     <field name="gender"/>
                     <field name="tgl_daftar"/>
                     <field name="alamat"/>
-                    <field name="team_name"/>
+                    <field name="name"/>
                 </tree>
             </field>
         </record>
@@ -32,7 +32,7 @@
                                 <field name="gender"/>
                                 <field name="tgl_daftar"/>
                                 <field name="alamat"/>
-                                <field name="team_name"/>
+                                <field name="name"/>
                         </t>
                     </templates>
                 </kanban>
@@ -58,7 +58,7 @@
                                 <field name="gender"/>
                                 <field name="tgl_daftar"/>
                                 <field name="alamat"/>
-                                <field name="team_name"/>
+                                <field name="name"/>
                             </group>
                             <group string="Kontak">
                                 <field name="no_telp"/>

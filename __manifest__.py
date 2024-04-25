@@ -46,6 +46,7 @@
         'views/penyewaansint_view.xml',
         'views/sales_view_sintetis.xml',        
         'views/sales_view_vinyl.xml',
+        'wizard/wizard_penyewaan.xml' 
     ],
     # only loaded in demonstration mode
     'demo': [

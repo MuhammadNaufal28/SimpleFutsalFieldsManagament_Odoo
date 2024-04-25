@@ -15,8 +15,8 @@ except ImportError:
 class DoodexfutsalPelanggan(models.Model):
     _name = 'doodexfutsal.pelanggan'
     _description = 'Doodexfutsal Pelanggan'
-    _rec_name = 'id_member'
 
+    name = fields.Char(string='Nama Team')
     id_member = fields.Char(
         string="Id Member",
         required=True, copy=False, readonly=True,
@@ -26,7 +26,6 @@ class DoodexfutsalPelanggan(models.Model):
     gender = fields.Selection(string='Jenis Kelamin', selection=[('pria', 'Pria'), ('wanita', 'Wanita'),])
     tgl_daftar = fields.Date(string='Tanggal Daftar', default=fields.Date.today())
     alamat = fields.Char(string='Alamat')
-    team_name = fields.Char(string='Nama Team')
     no_telp = fields.Char(string='No Telepon')
     second_person = fields.Char(string='Penanggung Jawab Kedua')
     no_telp2 = fields.Char(string='No Telepon Penanggung Jawab Kedua')
