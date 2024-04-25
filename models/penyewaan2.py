@@ -278,4 +278,7 @@ class Detailpenjualanbarang(models.Model):
     @api.depends('qty', 'harga_barang')
     def _compute_total_barang(self):
         for record in self:
-            record.total_barang = record.qty * record.harga_barang
+            record.total_barang = record.qty * record
+            
+    #tests
+
