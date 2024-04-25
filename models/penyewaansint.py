@@ -146,3 +146,4 @@ class Detailpenjualanbarangsint(models.Model):
         for record in self:
             record.total_barang = record.qty * record.harga_barang
     
+# tests
